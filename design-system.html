@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motors – Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #F7F9FC;
+      color: #1E2A3A;
+      padding: 48px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+    .ds-page { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 64px; }
+    .ds-header { border-bottom: 2px solid #0057FF; padding-bottom: 24px; }
+    .ds-header h1 { font-size: 2.25rem; font-weight: 800; color: #0F1523; letter-spacing: -0.02em; }
+    .ds-header p { font-size: 1rem; color: #64748B; margin-top: 8px; }
+
+    .ds-section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #64748B;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #E2E8F2;
+    }
+
+    /* Color grid */
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    .color-swatch {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+    .color-swatch-block { height: 80px; }
+    .color-swatch-info { padding: 10px 12px; }
+    .color-swatch-name { font-size: 0.75rem; font-weight: 600; color: #1E2A3A; }
+    .color-swatch-hex { font-size: 0.7rem; color: #64748B; margin-top: 2px; font-family: 'SF Mono', 'Fira Code', monospace; }
+
+    /* Color groups */
+    .color-group { margin-bottom: 32px; }
+    .color-group-label { font-size: 0.8rem; font-weight: 600; color: #A0AFBD; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* Typography */
+    .type-scale { display: flex; flex-direction: column; gap: 0; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+    .type-row {
+      display: grid;
+      grid-template-columns: 120px 80px 1fr;
+      align-items: center;
+      gap: 24px;
+      padding: 16px 24px;
+      border-bottom: 1px solid #E2E8F2;
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-label { font-size: 0.75rem; color: #64748B; font-weight: 500; }
+    .type-size { font-size: 0.75rem; color: #A0AFBD; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .type-sample { font-family: 'Inter', sans-serif; color: #0F1523; line-height: 1.2; }
+
+    /* Spacing */
+    .space-grid { display: flex; flex-direction: column; gap: 12px; }
+    .space-row { display: flex; align-items: center; gap: 20px; }
+    .space-bar-wrap { flex: 1; background: #EEF3FA; border-radius: 4px; height: 32px; display: flex; align-items: center; }
+    .space-bar { background: #0057FF; height: 32px; border-radius: 4px; opacity: 0.7; }
+    .space-label { font-size: 0.75rem; font-weight: 600; color: #64748B; width: 80px; flex-shrink: 0; }
+    .space-value { font-size: 0.75rem; color: #A0AFBD; width: 60px; flex-shrink: 0; font-family: 'SF Mono', 'Fira Code', monospace; }
+
+    /* Radius */
+    .radius-grid { display: flex; gap: 24px; flex-wrap: wrap; }
+    .radius-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .radius-box {
+      width: 80px;
+      height: 80px;
+      background: #0057FF;
+      opacity: 0.15;
+      border: 2px solid #0057FF;
+    }
+    .radius-label { font-size: 0.75rem; font-weight: 600; color: #64748B; text-align: center; }
+    .radius-value { font-size: 0.7rem; color: #A0AFBD; font-family: 'SF Mono', 'Fira Code', monospace; }
+
+    /* Shadows */
+    .shadow-grid { display: flex; gap: 24px; flex-wrap: wrap; }
+    .shadow-item { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .shadow-box {
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border-radius: 12px;
+    }
+    .shadow-label { font-size: 0.75rem; font-weight: 600; color: #64748B; text-align: center; }
+
+    /* Font weights */
+    .weight-row { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 24px; }
+    .weight-item { }
+    .weight-sample { font-size: 1.5rem; color: #0F1523; }
+    .weight-label { font-size: 0.75rem; color: #64748B; margin-top: 4px; }
+  </style>
+</head>
+<body>
+<div class="ds-page">
+
+  <!-- Header -->
+  <div class="ds-header">
+    <h1>Motors Design System</h1>
+    <p>Color palette · Typography · Spacing · Border radius · Shadows</p>
+  </div>
+
+  <!-- COLORS -->
+  <div>
+    <div class="ds-section-title">Colors</div>
+
+    <div class="color-group">
+      <div class="color-group-label">Primary</div>
+      <div class="color-grid">
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#0057FF"></div><div class="color-swatch-info"><div class="color-swatch-name">Primary</div><div class="color-swatch-hex">#0057FF</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#0041CC"></div><div class="color-swatch-info"><div class="color-swatch-name">Primary Dark</div><div class="color-swatch-hex">#0041CC</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#EBF1FF"></div><div class="color-swatch-info"><div class="color-swatch-name">Primary Light</div><div class="color-swatch-hex">#EBF1FF</div></div></div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <div class="color-group-label">Accent</div>
+      <div class="color-grid">
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#FFC107"></div><div class="color-swatch-info"><div class="color-swatch-name">Accent</div><div class="color-swatch-hex">#FFC107</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#E6A800"></div><div class="color-swatch-info"><div class="color-swatch-name">Accent Dark</div><div class="color-swatch-hex">#E6A800</div></div></div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <div class="color-group-label">Neutrals &amp; Text</div>
+      <div class="color-grid">
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#0F1523"></div><div class="color-swatch-info"><div class="color-swatch-name">Dark</div><div class="color-swatch-hex">#0F1523</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#1E2A3A"></div><div class="color-swatch-info"><div class="color-swatch-name">Text</div><div class="color-swatch-hex">#1E2A3A</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#64748B"></div><div class="color-swatch-info"><div class="color-swatch-name">Text Light</div><div class="color-swatch-hex">#64748B</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#A0AFBD"></div><div class="color-swatch-info"><div class="color-swatch-name">Text Muted</div><div class="color-swatch-hex">#A0AFBD</div></div></div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <div class="color-group-label">Backgrounds &amp; Borders</div>
+      <div class="color-grid">
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#FFFFFF; border:1px solid #E2E8F2"></div><div class="color-swatch-info"><div class="color-swatch-name">Background</div><div class="color-swatch-hex">#FFFFFF</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#F7F9FC"></div><div class="color-swatch-info"><div class="color-swatch-name">Surface</div><div class="color-swatch-hex">#F7F9FC</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#EEF3FA"></div><div class="color-swatch-info"><div class="color-swatch-name">Surface 2</div><div class="color-swatch-hex">#EEF3FA</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#E2E8F2"></div><div class="color-swatch-info"><div class="color-swatch-name">Border</div><div class="color-swatch-hex">#E2E8F2</div></div></div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <div class="color-group-label">Status</div>
+      <div class="color-grid">
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#16A34A"></div><div class="color-swatch-info"><div class="color-swatch-name">Success</div><div class="color-swatch-hex">#16A34A</div></div></div>
+        <div class="color-swatch"><div class="color-swatch-block" style="background:#DC2626"></div><div class="color-swatch-info"><div class="color-swatch-name">Danger</div><div class="color-swatch-hex">#DC2626</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div>
+    <div class="ds-section-title">Typography – Inter</div>
+
+    <div class="type-scale">
+      <div class="type-row"><span class="type-label">5xl / Display</span><span class="type-size">3rem · 48px</span><span class="type-sample" style="font-size:3rem;font-weight:800;">Find Your Car</span></div>
+      <div class="type-row"><span class="type-label">4xl / H1</span><span class="type-size">2.25rem · 36px</span><span class="type-sample" style="font-size:2.25rem;font-weight:700;">Find Your Perfect Car</span></div>
+      <div class="type-row"><span class="type-label">3xl / H2</span><span class="type-size">1.875rem · 30px</span><span class="type-sample" style="font-size:1.875rem;font-weight:700;">Featured Listings</span></div>
+      <div class="type-row"><span class="type-label">2xl / H3</span><span class="type-size">1.5rem · 24px</span><span class="type-sample" style="font-size:1.5rem;font-weight:600;">Browse by Make</span></div>
+      <div class="type-row"><span class="type-label">xl / H4</span><span class="type-size">1.25rem · 20px</span><span class="type-sample" style="font-size:1.25rem;font-weight:600;">2024 Tesla Model 3</span></div>
+      <div class="type-row"><span class="type-label">lg / Lead</span><span class="type-size">1.125rem · 18px</span><span class="type-sample" style="font-size:1.125rem;font-weight:400;">Explore thousands of verified listings</span></div>
+      <div class="type-row"><span class="type-label">base / Body</span><span class="type-size">1rem · 16px</span><span class="type-sample" style="font-size:1rem;font-weight:400;">The quick brown fox jumps over the lazy dog</span></div>
+      <div class="type-row"><span class="type-label">sm / Small</span><span class="type-size">0.875rem · 14px</span><span class="type-sample" style="font-size:0.875rem;font-weight:400;">28,450 km · Automatic · Gasoline</span></div>
+      <div class="type-row"><span class="type-label">xs / Caption</span><span class="type-size">0.75rem · 12px</span><span class="type-sample" style="font-size:0.75rem;font-weight:500;color:#64748B;">VERIFIED DEALER · 3 days ago</span></div>
+    </div>
+
+    <div class="weight-row">
+      <div class="weight-item"><div class="weight-sample" style="font-weight:400;">Regular 400</div><div class="weight-label">Body text</div></div>
+      <div class="weight-item"><div class="weight-sample" style="font-weight:500;">Medium 500</div><div class="weight-label">Labels, captions</div></div>
+      <div class="weight-item"><div class="weight-sample" style="font-weight:600;">SemiBold 600</div><div class="weight-label">Subheadings, prices</div></div>
+      <div class="weight-item"><div class="weight-sample" style="font-weight:700;">Bold 700</div><div class="weight-label">Headings, CTAs</div></div>
+      <div class="weight-item"><div class="weight-sample" style="font-weight:800;">ExtraBold 800</div><div class="weight-label">Hero, display</div></div>
+    </div>
+  </div>
+
+  <!-- SPACING -->
+  <div>
+    <div class="ds-section-title">Spacing Scale</div>
+    <div class="space-grid">
+      <div class="space-row"><span class="space-label">space-1</span><span class="space-value">4px</span><div class="space-bar-wrap"><div class="space-bar" style="width:4px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-2</span><span class="space-value">8px</span><div class="space-bar-wrap"><div class="space-bar" style="width:8px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-3</span><span class="space-value">12px</span><div class="space-bar-wrap"><div class="space-bar" style="width:12px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-4</span><span class="space-value">16px</span><div class="space-bar-wrap"><div class="space-bar" style="width:16px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-5</span><span class="space-value">20px</span><div class="space-bar-wrap"><div class="space-bar" style="width:20px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-6</span><span class="space-value">24px</span><div class="space-bar-wrap"><div class="space-bar" style="width:24px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-8</span><span class="space-value">32px</span><div class="space-bar-wrap"><div class="space-bar" style="width:32px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-10</span><span class="space-value">40px</span><div class="space-bar-wrap"><div class="space-bar" style="width:40px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-12</span><span class="space-value">48px</span><div class="space-bar-wrap"><div class="space-bar" style="width:48px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-16</span><span class="space-value">64px</span><div class="space-bar-wrap"><div class="space-bar" style="width:64px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-20</span><span class="space-value">80px</span><div class="space-bar-wrap"><div class="space-bar" style="width:80px"></div></div></div>
+      <div class="space-row"><span class="space-label">space-24</span><span class="space-value">96px</span><div class="space-bar-wrap"><div class="space-bar" style="width:96px"></div></div></div>
+    </div>
+  </div>
+
+  <!-- BORDER RADIUS -->
+  <div>
+    <div class="ds-section-title">Border Radius</div>
+    <div class="radius-grid">
+      <div class="radius-item"><div class="radius-box" style="border-radius:4px"></div><div class="radius-label">sm</div><div class="radius-value">4px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:8px"></div><div class="radius-label">md</div><div class="radius-value">8px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:12px"></div><div class="radius-label">lg</div><div class="radius-value">12px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:16px"></div><div class="radius-label">xl</div><div class="radius-value">16px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:20px"></div><div class="radius-label">2xl</div><div class="radius-value">20px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:9999px"></div><div class="radius-label">full</div><div class="radius-value">9999px</div></div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div>
+    <div class="ds-section-title">Buttons</div>
+    <div style="display:flex;flex-direction:column;gap:32px;">
+
+      <!-- Row headers -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:16px;align-items:center;">
+        <div></div>
+        <div style="font-size:0.75rem;font-weight:700;color:#A0AFBD;text-transform:uppercase;letter-spacing:0.08em;">Default</div>
+        <div style="font-size:0.75rem;font-weight:700;color:#A0AFBD;text-transform:uppercase;letter-spacing:0.08em;">Hover</div>
+      </div>
+
+      <!-- 1. Add Listing – Primary CTA -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Add Listing</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Primary CTA · pill</div>
+        </div>
+        <div>
+          <button style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;background:#0057FF;color:#FAFAFA;font-size:0.875rem;font-weight:700;border-radius:9999px;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(0,87,255,0.35);font-family:Inter,sans-serif;">+ Add Listing</button>
+        </div>
+        <div>
+          <button style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;background:#0041CC;color:#FAFAFA;font-size:0.875rem;font-weight:700;border-radius:9999px;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(0,87,255,0.4);transform:translateY(-1px);font-family:Inter,sans-serif;">+ Add Listing</button>
+        </div>
+      </div>
+
+      <!-- 2. Search -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Search</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Primary · rounded</div>
+        </div>
+        <div>
+          <button style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;background:#0057FF;color:#FAFAFA;font-size:1rem;font-weight:700;border-radius:8px;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(0,87,255,0.35);font-family:Inter,sans-serif;">🔍 Search</button>
+        </div>
+        <div>
+          <button style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;background:#0041CC;color:#FAFAFA;font-size:1rem;font-weight:700;border-radius:8px;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(0,87,255,0.45);transform:translateY(-1px);font-family:Inter,sans-serif;">🔍 Search</button>
+        </div>
+      </div>
+
+      <!-- 3. Sign Up -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Sign Up</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Outline · secondary CTA</div>
+        </div>
+        <div>
+          <button style="display:inline-flex;align-items:center;justify-content:center;padding:8px 20px;color:#0057FF;border:1.5px solid #0057FF;border-radius:8px;font-size:0.875rem;font-weight:600;background:transparent;cursor:pointer;font-family:Inter,sans-serif;">Sign Up</button>
+        </div>
+        <div>
+          <button style="display:inline-flex;align-items:center;justify-content:center;padding:8px 20px;color:#0057FF;border:1.5px solid #0057FF;border-radius:8px;font-size:0.875rem;font-weight:600;background:#EBF1FF;cursor:pointer;font-family:Inter,sans-serif;">Sign Up</button>
+        </div>
+      </div>
+
+      <!-- 4. Log In -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Log In</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Ghost · text only</div>
+        </div>
+        <div>
+          <button style="padding:8px 16px;color:#64748B;border-radius:8px;font-size:0.875rem;font-weight:500;background:transparent;border:none;cursor:pointer;font-family:Inter,sans-serif;">Log In</button>
+        </div>
+        <div>
+          <button style="padding:8px 16px;color:#0057FF;border-radius:8px;font-size:0.875rem;font-weight:500;background:#F7F9FC;border:none;cursor:pointer;font-family:Inter,sans-serif;">Log In</button>
+        </div>
+      </div>
+
+      <!-- 5. View Details -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">View Details</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Primary · card action</div>
+        </div>
+        <div>
+          <button style="padding:11px 24px;background:#0057FF;color:#FAFAFA;font-size:0.875rem;font-weight:700;border-radius:8px;border:none;cursor:pointer;font-family:Inter,sans-serif;">View Details</button>
+        </div>
+        <div>
+          <button style="padding:11px 24px;background:#0041CC;color:#FAFAFA;font-size:0.875rem;font-weight:700;border-radius:8px;border:none;cursor:pointer;font-family:Inter,sans-serif;">View Details</button>
+        </div>
+      </div>
+
+      <!-- 6. Visit Dealer -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Visit Dealer</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Outline → fills on hover</div>
+        </div>
+        <div>
+          <button style="padding:11px 24px;background:transparent;color:#0057FF;border:2px solid #0057FF;border-radius:8px;font-size:0.875rem;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;">Visit Dealer</button>
+        </div>
+        <div>
+          <button style="padding:11px 24px;background:#0057FF;color:#FAFAFA;border:2px solid #0057FF;border-radius:8px;font-size:0.875rem;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;">Visit Dealer</button>
+        </div>
+      </div>
+
+      <!-- 7. Compare (icon button) -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Compare (icon)</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Icon-only · card action</div>
+        </div>
+        <div>
+          <button style="padding:11px 14px;border:2px solid #E2E8F2;border-radius:8px;color:#64748B;background:none;cursor:pointer;font-size:0.875rem;font-family:Inter,sans-serif;">⇄</button>
+        </div>
+        <div>
+          <button style="padding:11px 14px;border:2px solid #0057FF;border-radius:8px;color:#0057FF;background:#EBF1FF;cursor:pointer;font-size:0.875rem;font-family:Inter,sans-serif;">⇄</button>
+        </div>
+      </div>
+
+      <!-- 8. Compare header button -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Compare (header)</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Ghost + counter badge</div>
+        </div>
+        <div>
+          <button style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;color:#A0AFBD;background:#F7F9FC;border-radius:8px;border:none;font-size:0.875rem;font-weight:500;cursor:pointer;font-family:Inter,sans-serif;">⇄ Compare <span style="background:#E2E8F2;color:#64748B;width:17px;height:17px;border-radius:50%;font-size:0.6rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;">0</span></button>
+        </div>
+        <div>
+          <button style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;color:#0057FF;background:#EBF1FF;border-radius:8px;border:none;font-size:0.875rem;font-weight:500;cursor:pointer;font-family:Inter,sans-serif;">⇄ Compare <span style="background:#0057FF;color:#FAFAFA;width:17px;height:17px;border-radius:50%;font-size:0.6rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;">0</span></button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- INTERACTIVE ELEMENTS -->
+  <div>
+    <div class="ds-section-title">Interactive Elements</div>
+    <div style="display:flex;flex-direction:column;gap:32px;">
+
+      <!-- Row headers -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;">
+        <div></div>
+        <div style="font-size:0.75rem;font-weight:700;color:#A0AFBD;text-transform:uppercase;letter-spacing:0.08em;">Default</div>
+        <div style="font-size:0.75rem;font-weight:700;color:#A0AFBD;text-transform:uppercase;letter-spacing:0.08em;">Hover</div>
+        <div style="font-size:0.75rem;font-weight:700;color:#A0AFBD;text-transform:uppercase;letter-spacing:0.08em;">Active / Selected</div>
+      </div>
+
+      <!-- Wishlist / Heart icon -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Wishlist</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Heart icon · on card image</div>
+        </div>
+        <div>
+          <button style="width:32px;height:32px;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);border-radius:50%;display:grid;place-items:center;font-size:0.875rem;color:#64748B;border:none;cursor:pointer;">♡</button>
+        </div>
+        <div>
+          <button style="width:32px;height:32px;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);border-radius:50%;display:grid;place-items:center;font-size:0.875rem;color:#DC2626;border:none;cursor:pointer;transform:scale(1.12);">♡</button>
+        </div>
+        <div>
+          <button style="width:32px;height:32px;background:rgba(255,255,255,0.85);backdrop-filter:blur(6px);border-radius:50%;display:grid;place-items:center;font-size:0.875rem;color:#DC2626;border:none;cursor:pointer;">♥</button>
+        </div>
+      </div>
+
+      <!-- Search tab -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Search Tab</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Buy / Sell / Lease</div>
+        </div>
+        <div>
+          <button style="padding:8px 20px;font-size:0.875rem;font-weight:500;color:#64748B;background:#F7F9FC;border:2px solid transparent;border-radius:8px;cursor:pointer;font-family:Inter,sans-serif;">Buy</button>
+        </div>
+        <div>
+          <button style="padding:8px 20px;font-size:0.875rem;font-weight:500;color:#0057FF;background:#F7F9FC;border:2px solid #EBF1FF;border-radius:8px;cursor:pointer;font-family:Inter,sans-serif;">Buy</button>
+        </div>
+        <div>
+          <button style="padding:8px 20px;font-size:0.875rem;font-weight:500;color:#FAFAFA;background:#0057FF;border:2px solid #0057FF;border-radius:8px;cursor:pointer;font-family:Inter,sans-serif;">Buy</button>
+        </div>
+      </div>
+
+      <!-- Listing filter tab -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Listing Tab</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">All / New / Used</div>
+        </div>
+        <div>
+          <button style="padding:8px 20px;font-size:0.875rem;font-weight:600;color:#64748B;background:none;border:none;border-radius:8px;cursor:pointer;font-family:Inter,sans-serif;">All</button>
+        </div>
+        <div>
+          <button style="padding:8px 20px;font-size:0.875rem;font-weight:600;color:#0057FF;background:none;border:none;border-radius:8px;cursor:pointer;font-family:Inter,sans-serif;">All</button>
+        </div>
+        <div>
+          <button style="padding:8px 20px;font-size:0.875rem;font-weight:600;color:#0057FF;background:#fff;border:none;border-radius:8px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.07);font-family:Inter,sans-serif;">All</button>
+        </div>
+      </div>
+
+      <!-- View All / link-all -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">View All link</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Arrow shifts right on hover</div>
+        </div>
+        <div>
+          <a href="#" style="display:inline-flex;align-items:center;gap:8px;color:#0057FF;font-weight:600;font-size:0.875rem;text-decoration:none;font-family:Inter,sans-serif;"><span>View All Makes</span><span>→</span></a>
+        </div>
+        <div>
+          <a href="#" style="display:inline-flex;align-items:center;gap:24px;color:#0057FF;font-weight:600;font-size:0.875rem;text-decoration:none;font-family:Inter,sans-serif;"><span>View All Makes</span><span>→</span></a>
+        </div>
+        <div style="color:#A0AFBD;font-size:0.75rem;">—</div>
+      </div>
+
+      <!-- Nav link -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Nav Link</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Header navigation item</div>
+        </div>
+        <div>
+          <a href="#" style="padding:8px 12px;font-size:0.875rem;font-weight:500;color:#1E2A3A;border-radius:8px;text-decoration:none;font-family:Inter,sans-serif;">Inventory ▾</a>
+        </div>
+        <div>
+          <a href="#" style="padding:8px 12px;font-size:0.875rem;font-weight:500;color:#0057FF;background:#EBF1FF;border-radius:8px;text-decoration:none;font-family:Inter,sans-serif;">Inventory ▾</a>
+        </div>
+        <div style="color:#A0AFBD;font-size:0.75rem;">—</div>
+      </div>
+
+      <!-- Dropdown item -->
+      <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;background:#fff;padding:20px 24px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.07);">
+        <div>
+          <div style="font-size:0.8rem;font-weight:600;color:#1E2A3A;">Dropdown Item</div>
+          <div style="font-size:0.7rem;color:#A0AFBD;margin-top:2px;">Nav dropdown link</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E2E8F2;border-radius:8px;overflow:hidden;width:180px;">
+          <a href="#" style="display:block;padding:10px 20px;font-size:0.875rem;color:#1E2A3A;text-decoration:none;font-family:Inter,sans-serif;">New Cars</a>
+        </div>
+        <div style="background:#fff;border:1px solid #E2E8F2;border-radius:8px;overflow:hidden;width:180px;">
+          <a href="#" style="display:block;padding:10px 24px;font-size:0.875rem;color:#0057FF;background:#EBF1FF;text-decoration:none;font-family:Inter,sans-serif;">New Cars</a>
+        </div>
+        <div style="color:#A0AFBD;font-size:0.75rem;">—</div>
+      </div>
+
+      <!-- Dark background elements -->
+      <div style="background:#0F1523;border-radius:12px;padding:24px;">
+        <div style="font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:20px;">Dark background elements</div>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <!-- Top bar social -->
+          <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;">
+            <div>
+              <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.7);">Top Bar Social</div>
+              <div style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:2px;">Icon link, dark bg</div>
+            </div>
+            <div>
+              <a href="#" style="color:rgba(255,255,255,0.55);font-size:0.875rem;text-decoration:none;">f</a>
+            </div>
+            <div>
+              <a href="#" style="color:#FAFAFA;font-size:0.875rem;text-decoration:none;">f</a>
+            </div>
+            <div style="color:rgba(255,255,255,0.2);font-size:0.75rem;">—</div>
+          </div>
+
+          <!-- Footer social icon -->
+          <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;">
+            <div>
+              <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.7);">Footer Social</div>
+              <div style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:2px;">Icon button, dark bg</div>
+            </div>
+            <div>
+              <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,0.06);border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-size:0.875rem;text-decoration:none;">f</a>
+            </div>
+            <div>
+              <a href="#" style="width:38px;height:38px;background:#0057FF;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#FAFAFA;font-size:0.875rem;text-decoration:none;">f</a>
+            </div>
+            <div style="color:rgba(255,255,255,0.2);font-size:0.75rem;">—</div>
+          </div>
+
+          <!-- Footer nav link -->
+          <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;">
+            <div>
+              <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.7);">Footer Nav Link</div>
+              <div style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:2px;">Indents on hover</div>
+            </div>
+            <div>
+              <a href="#" style="display:inline-flex;align-items:center;gap:8px;font-size:0.875rem;color:rgba(255,255,255,0.55);text-decoration:none;font-family:Inter,sans-serif;">› About Us</a>
+            </div>
+            <div>
+              <a href="#" style="display:inline-flex;align-items:center;gap:8px;font-size:0.875rem;color:#FAFAFA;padding-left:4px;text-decoration:none;font-family:Inter,sans-serif;">› About Us</a>
+            </div>
+            <div style="color:rgba(255,255,255,0.2);font-size:0.75rem;">—</div>
+          </div>
+
+          <!-- Footer bottom link -->
+          <div style="display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:16px;align-items:center;">
+            <div>
+              <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.7);">Footer Bottom Link</div>
+              <div style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-top:2px;">Privacy / Terms</div>
+            </div>
+            <div>
+              <a href="#" style="font-size:0.875rem;color:rgba(255,255,255,0.4);text-decoration:none;font-family:Inter,sans-serif;">Privacy Policy</a>
+            </div>
+            <div>
+              <a href="#" style="font-size:0.875rem;color:#FAFAFA;text-decoration:none;font-family:Inter,sans-serif;">Privacy Policy</a>
+            </div>
+            <div style="color:rgba(255,255,255,0.2);font-size:0.75rem;">—</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SHADOWS -->
+  <div>
+    <div class="ds-section-title">Shadows</div>
+    <div class="shadow-grid">
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.05)"></div><div class="shadow-label">sm</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 4px 12px rgba(0,0,0,0.08),0 2px 4px rgba(0,0,0,0.05)"></div><div class="shadow-label">md</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 10px 30px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.06)"></div><div class="shadow-label">lg</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 20px 50px rgba(0,0,0,0.13),0 8px 16px rgba(0,0,0,0.07)"></div><div class="shadow-label">xl</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 6px 20px rgba(0,87,255,0.35)"></div><div class="shadow-label">blue</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

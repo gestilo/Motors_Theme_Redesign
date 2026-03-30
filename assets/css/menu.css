@@ -1,0 +1,386 @@
+/* =============================================
+   MENU.CSS – Top bar, header, navigation,
+   dropdown, hamburger, mobile nav
+============================================= */
+
+/* =============================================
+   TOP BAR
+============================================= */
+.top-bar {
+  background: var(--color-dark);
+  color: rgba(255,255,255,0.65);
+  font-size: var(--text-xs);
+  padding-block: 9px;
+}
+.top-bar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+.top-bar-left span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.top-bar-left i { color: var(--color-primary); font-size: 0.7rem; }
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+.top-bar-social {
+  display: flex;
+  gap: var(--space-3);
+}
+.top-bar-social a {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.75rem;
+  transition: color var(--transition);
+}
+.top-bar-social a:hover { color: #FAFAFA; }
+.currency-select {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.65);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  appearance: none;
+}
+.currency-select:focus { outline: none; border-color: var(--color-primary); }
+.currency-select option { background: var(--color-dark); color: #FAFAFA; }
+.currency-wrap { display: inline-flex; align-items: center; }
+.currency-text { color: rgba(255,255,255,0.65); font-size: var(--text-xs); }
+
+/* =============================================
+   HEADER
+============================================= */
+.header {
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: box-shadow var(--transition);
+}
+.header.scrolled { box-shadow: var(--shadow-md); border-bottom-color: transparent; }
+.header .container {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  gap: var(--space-8);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-2xl);
+  font-weight: 900;
+  color: var(--color-dark);
+  letter-spacing: -0.04em;
+  flex-shrink: 0;
+}
+.logo-dot { color: var(--color-primary); }
+.logo-img { height: 36px; width: auto; }
+
+/* =============================================
+   MAIN NAV
+============================================= */
+.nav { flex: 1; }
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.nav-item { position: relative; }
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.nav-link i.fa-chevron-down {
+  font-size: 0.6rem;
+  transition: transform var(--transition);
+}
+.nav-item:hover > .nav-link,
+.nav-item.open > .nav-link {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+.nav-item.open > .nav-link i.fa-chevron-down { transform: rotate(180deg); }
+
+/* =============================================
+   DROPDOWN
+============================================= */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 190px;
+  background: var(--color-bg);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-border);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: all 0.18s ease;
+  z-index: 200;
+  padding-block: var(--space-2);
+}
+.nav-item.open .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.dropdown li a {
+  display: block;
+  padding: 10px var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  transition: all var(--transition);
+}
+.dropdown li a:hover,
+.dropdown li a.force-hover {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  padding-left: var(--space-6);
+}
+
+/* =============================================
+   HEADER ACTIONS
+============================================= */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+/* Compare – utility, halvány */
+.btn-compare {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+}
+.btn-compare:hover { color: var(--color-primary); background: var(--color-primary-light); }
+.compare-badge {
+  background: var(--color-border);
+  color: var(--color-text-light);
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  transition: all var(--transition);
+}
+.btn-compare:hover .compare-badge { background: var(--color-primary); color: #FAFAFA; }
+
+/* Log In – ghost, közepes súly */
+.btn-login {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-light);
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+}
+.btn-login:hover { color: var(--color-primary); background: var(--color-surface); }
+
+/* Sign Up – outline, másodlagos CTA */
+.btn-signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.btn-signup:hover { background: var(--color-primary-light); }
+
+/* Add Listing – primary CTA, legdominánsabb */
+.btn-add-listing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 10px var(--space-5);
+  background: var(--color-primary);
+  color: #FAFAFA;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  transition: all var(--transition);
+  box-shadow: var(--shadow-blue);
+  white-space: nowrap;
+}
+.btn-add-listing:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0,87,255,0.4);
+}
+
+/* =============================================
+   HAMBURGER
+============================================= */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: var(--space-2);
+  width: 40px; height: 40px;
+  border-radius: var(--radius-md);
+  transition: background var(--transition);
+}
+.hamburger:hover { background: var(--color-surface); }
+.hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* =============================================
+   RESPONSIVE – navigation
+============================================= */
+
+/* Tablet + mobile: hamburger (iPad Pro és alatta) */
+@media (max-width: 1024px) {
+  .top-bar { display: none; }
+  .nav, .header-actions { display: none; }
+  .hamburger { display: flex; margin-left: auto; }
+  .header .container { height: 62px; }
+}
+
+/* =============================================
+   MOBILE NAV OPEN STATE
+============================================= */
+
+/* Nav mobile actions: alapból rejtett, csak nyitott menüben látszik */
+.nav-mobile-actions { display: none; }
+
+body.nav-open .nav {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 62px;
+  left: 0; right: 0;
+  background: white;
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-4);
+  z-index: 999;
+  max-height: calc(100vh - 62px);
+  overflow-y: auto;
+}
+body.nav-open .nav .nav-list {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  width: 100%;
+}
+body.nav-open .nav .nav-link {
+  padding: var(--space-3) var(--space-4);
+}
+body.nav-open .dropdown {
+  position: static;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  box-shadow: none;
+  border: none;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding-block: var(--space-2);
+  margin-top: 3px;
+  display: none;
+}
+body.nav-open .nav-item.open .dropdown { display: block; }
+body.nav-open .header-actions { display: none; }
+
+/* Gombok a mobilmenü alján */
+body.nav-open .nav-mobile-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+  width: 100%;
+}
+/* Login + Sign Up: egymás mellé */
+body.nav-open .nav-mobile-actions .btn-login {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-light);
+  background: var(--color-surface);
+  text-align: center;
+}
+body.nav-open .nav-mobile-actions .btn-signup {
+  padding: 12px;
+  font-size: var(--text-sm);
+}
+/* Add Listing: teljes sor, primary */
+body.nav-open .nav-mobile-actions .btn-add-listing {
+  grid-column: 1 / -1;
+  padding: 14px;
+  font-size: var(--text-base);
+}
+/* Compare: teljes sor, diszkrét utility link */
+body.nav-open .nav-mobile-actions .btn-compare {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  padding: var(--space-2);
+  background: none;
+}
+body.nav-open .nav-mobile-currency {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+body.nav-open .nav-mobile-currency .currency-select {
+  background: transparent;
+  border: 1px solid rgba(0, 87, 255, 0.3);
+  color: var(--color-text);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}

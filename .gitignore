@@ -1,0 +1,15 @@
+# Claude internal
+.claude/
+.claudeignore
+.mcp.json
+CLAUDE.md
+
+# Figma source file (large binary)
+*.fig
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
