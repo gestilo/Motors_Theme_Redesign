@@ -297,7 +297,7 @@ body.nav-open .nav {
   position: fixed;
   top: 62px;
   left: 0; right: 0;
-  background: white;
+  background: var(--color-bg);
   box-shadow: var(--shadow-xl);
   padding: var(--space-4);
   z-index: 999;

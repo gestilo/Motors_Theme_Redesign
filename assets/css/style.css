@@ -167,7 +167,7 @@ input, select { font-family: var(--font-primary); }
 
 /* Search box */
 .search-box {
-  background: white;
+  background: var(--color-bg);
   border-radius: var(--radius-2xl);
   padding: var(--space-6);
   box-shadow: var(--shadow-xl);
@@ -389,7 +389,7 @@ input, select { font-family: var(--font-primary); }
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-5) var(--space-4);
-  background: white;
+  background: var(--color-bg);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-xl);
   cursor: pointer;
@@ -456,7 +456,7 @@ input, select { font-family: var(--font-primary); }
 }
 .listing-tab:hover { color: var(--color-primary); }
 .listing-tab.active {
-  background: white;
+  background: var(--color-bg);
   color: var(--color-primary);
   box-shadow: var(--shadow-sm);
 }
@@ -468,16 +468,20 @@ input, select { font-family: var(--font-primary); }
   gap: var(--space-6);
 }
 
-/* Car card */
-.car-card {
-  background: white;
+/* Shared card base – car, dealer, blog */
+.car-card,
+.dealer-card,
+.blog-card {
+  background: var(--color-bg);
   border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
   transition: all 0.25s ease;
 }
-.car-card:hover {
+.car-card:hover,
+.dealer-card:hover,
+.blog-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-5px);
   border-color: transparent;
@@ -501,7 +505,7 @@ input, select { font-family: var(--font-primary); }
   align-items: center;
   justify-content: center;
   color: var(--color-text-muted);
-  font-size: 3rem;
+  font-size: var(--text-5xl);
 }
 .card-badges {
   position: absolute;
@@ -521,7 +525,7 @@ input, select { font-family: var(--font-primary); }
   line-height: 1;
 }
 .badge-new       { background: var(--color-primary); color: #FAFAFA; }
-.badge-used      { background: #64748B; color: #FAFAFA; }
+.badge-used      { background: var(--color-text-light); color: #FAFAFA; }
 .badge-certified { background: var(--color-success); color: #FAFAFA; }
 .badge-sale      { background: var(--color-danger); color: #FAFAFA; }
 .badge-sold      { background: var(--color-dark); color: #FAFAFA; }
@@ -661,7 +665,7 @@ input, select { font-family: var(--font-primary); }
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-6) var(--space-4);
-  background: white;
+  background: var(--color-bg);
   border: 2px solid var(--color-border);
   border-radius: var(--radius-xl);
   cursor: pointer;
@@ -673,7 +677,8 @@ input, select { font-family: var(--font-primary); }
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
-.body-type-icon {
+.body-type-icon,
+.body-type-icon-svg {
   width: 68px; height: 44px;
   display: flex;
   align-items: center;
@@ -681,10 +686,6 @@ input, select { font-family: var(--font-primary); }
 }
 .body-type-icon img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .body-type-icon-svg {
-  width: 68px; height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: var(--color-text-light);
   font-size: 1.75rem;
   transition: color var(--transition);
@@ -733,19 +734,6 @@ input, select { font-family: var(--font-primary); }
 }
 /* 4. kártya csak tableten és mobilon látszik */
 .dealers-grid .dealer-card:nth-child(4) { display: none; }
-.dealer-card {
-  background: white;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.25s ease;
-}
-.dealer-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-5px);
-  border-color: transparent;
-}
 .dealer-cover {
   position: relative;
   height: 200px;
@@ -814,19 +802,6 @@ input, select { font-family: var(--font-primary); }
 }
 /* 4. cikk csak tableten és mobilon látszik */
 .blog-grid .blog-card:nth-child(4) { display: none; }
-.blog-card {
-  background: white;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.25s ease;
-}
-.blog-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-5px);
-  border-color: transparent;
-}
 .blog-thumb {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -1039,23 +1014,15 @@ input, select { font-family: var(--font-primary); }
    ANIMATIONS
 ============================================= */
 
-/* Hero – staggered load */
-.hero-anim {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.hero-anim.anim-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Scroll sections – fade + slide up */
+/* Hero – staggered load / Scroll sections – fade + slide up */
+.hero-anim,
 .anim-up {
   opacity: 0;
-  transform: translateY(50px);
   transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.hero-anim { transform: translateY(40px); }
+.anim-up   { transform: translateY(50px); }
+.hero-anim.anim-in,
 .anim-up.anim-in {
   opacity: 1;
   transform: translateY(0);
@@ -1069,16 +1036,6 @@ input, select { font-family: var(--font-primary); }
     transition: none !important;
   }
 }
-
-/* =============================================
-   FORCE-HOVER – Figma capture szimulált hover (?hovercard)
-============================================= */
-.car-card.force-hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-5px);
-  border-color: transparent;
-}
-.car-card.force-hover .car-image img { transform: scale(1.06); }
 
 /* =============================================
    COOKIE BANNER – CookieYes-compatible
